@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Awesome font -->
+    <link rel="stylesheet" href="style/all.css">
+    <title>User UI</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <a class="navbar-brand" href="#"><strong>UserUI</strong></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <div class="navbar-nav mr-auto">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="#"><i class="fas fa-home"></i>&nbsp;Home <span
+                                            class="sr-only">(current)</span></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <form class="form-inline my-2 my-lg-0">
+                            <input class="form-control form-control-sm mr-sm-2" type="text" placeholder="First name">
+                            <input class="form-control form-control-sm mr-sm-2" type="text" placeholder="Last name">
+                        </form>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-12">
+                <div class="jumbotron" style="background-color:transparent !important;">
+                    <h1 class="display-3">User form UI</h1>
+                    <p class="lead">User form helper to get fill your coordinates easy <i class="far fa-smile-wink"></i>
+                    </p>
+                    <hr class="my-2">
+                    <p>
+                        <form id="registerForm" autocomplete="off" method="POST">
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="firstNameLabel">First name</label>
+                                    <input type="text" class="form-control" id="firstNameInput">
+                                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with
+                                        anyone else.</small>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="lastNameLabel">Last name</label>
+                                    <input type="text" class="form-control" id="lastNameInput">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="birthDayLabel">Birth day</label>
+                                <input type="date" class="form-control" id="birthDayInput">
+                            </div>
+                            <div class="form-group">
+                                <label for="whatsAppLabel">WhatsApp</label>
+                                <input type="tel" class="form-control" id="lastName" placeholder="+212 6 XX XX XX XX "
+                                    pattern="/(\+212|0)([ \-_/]*)(\d[ \-_/]*){9}/g">
+                            </div>
+                            <hr>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="userNameLabel">Username / Email</label>
+                                    <input type="text" id="userNameInput" class="form-control">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="passwordLabel">Password</label>
+                                    <input type="password" id="passwordInput" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">&nbsp;</div>
+                                <div class="form-group col-md-6 text-right">
+                                    <button type="button" class="btn btn-warning"><i
+                                            class="fas fa-ban"></i>&nbsp;Cancel</button>
+                                    <button type="submit" class="btn btn-success"><i
+                                            class="fas fa-check"></i>&nbsp;Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <!-- Awesome font -->
+    <script src="script/all.js"></script>
+    <!-- jquery validator -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
+    <!-- validate form -->
+    <script>
+        $(document).ready(function () {
+            $("#registerForm").validate({
+                rules:{
+                    firstNameInput:{
+                        Required: true
+                    }
+                },
+                messages:{
+                    firstNameInput:{
+                        Required:"Please enter the first name"
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
