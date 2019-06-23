@@ -57,33 +57,42 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="firstNameLabel">First name</label>
-                                    <input type="text" class="form-control" id="firstNameInput">
-                                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with
-                                        anyone else.</small>
+                                    <input type="text" class="form-control" id="firstNameInput" name="firstNameInput">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="lastNameLabel">Last name</label>
-                                    <input type="text" class="form-control" id="lastNameInput">
+                                    <input type="text" class="form-control" id="lastNameInput" name="lastNameInput">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="birthDayLabel">Birth day</label>
-                                <input type="date" class="form-control" id="birthDayInput">
+                                <input type="date" class="form-control" id="birthDayInput" name="birthDayInput">
+                                <div class="alert alert-danger mt-2" role="alert" style="display: none"
+                                    id="preventKidsAlert">
+                                    <i class="fas fa-exclamation-circle"></i>&nbsp;You don't have a <strong>legal
+                                        age</strong> to register on User UI plateform&nbsp;<i
+                                        class="far fa-frown-open"></i>.
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="whatsAppLabel">WhatsApp</label>
-                                <input type="tel" class="form-control" id="lastName" placeholder="+212 6 XX XX XX XX "
-                                    pattern="/(\+212|0)([ \-_/]*)(\d[ \-_/]*){9}/g">
+                                <input type="tel" class="form-control" id="WhatsAppInput" name="WhatsAppInput"
+                                    placeholder="+212 6 XX XX XX XX ">
+                                <!-- pattern="/(\+212|0)([ \-_/]*)(\d[ \-_/]*){9}/g"> -->
+                                <small id="telHelp" class="form-text text-muted">We'll never share your <i
+                                        class="fab fa-whatsapp" style="color: #25D366"></i>&nbsp;<span
+                                        style="color: #25D366"><strong>whatsApp</strong></span> with
+                                    anyone else.</small>
                             </div>
                             <hr>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="userNameLabel">Username / Email</label>
-                                    <input type="text" id="userNameInput" class="form-control">
+                                    <input type="text" id="userNameInput" name="userNameInput" class="form-control">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="passwordLabel">Password</label>
-                                    <input type="password" id="passwordInput" class="form-control">
+                                    <input type="password" id="passwordInput" name="passwordInput" class="form-control">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -101,7 +110,6 @@
             </div>
         </div>
     </div>
-
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -120,20 +128,72 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
     <!-- validate form -->
     <script>
+        $("#birthDayInput").on('change', function () {
+            var fullBirthDate = $(this).val().split('-');
+            var birthDateYear = fullBirthDate[0];
+            if ($.isNumeric(birthDateYear) && Number(birthDateYear) % 1 === 0) {
+                var currentDate = new Date();
+                var currentYear = currentDate.getFullYear();
+                if (currentYear - Number.parseInt(birthDateYear) < 18) {
+                    $("#preventKidsAlert").css("display", "block");
+                    return false;
+                } else {
+                    $("#preventKidsAlert").css("display", "none");
+                }
+
+
+            }
+        });
+        jQuery.validator.addMethod("specialPhoneRegex", function (value, element) {
+            return this.optional(element) || /(\+212|0)([ \-_/]*)(\d[ \-_/]*){9}/g.test(value);
+        }, "");
+
         $(document).ready(function () {
             $("#registerForm").validate({
-                rules:{
-                    firstNameInput:{
-                        Required: true
-                    }
+                rules: {
+                    firstNameInput: {
+                        required: true,
+                        minlength: 8
+                    },
+                    lastNameInput: {
+                        required: true,
+                        minlength: 8
+                    },
+                    birthDayInput: {
+                        required: true,
+                        date: true,
+                    },
+                    WhatsAppInput: {
+                        required: true,
+                        specialPhoneRegex: true
+                    },
+                    userNameInput: "required",
+                    passwordInput: "required"
                 },
-                messages:{
-                    firstNameInput:{
-                        Required:"Please enter the first name"
-                    }
+                messages: {
+                    firstNameInput: {
+                        required: "<small>Please specify your first name.</small>",
+                        minlength: "<small>The first name must contains at least <b>7</b> chars.</small>",
+                    },
+                    lastNameInput: {
+                        required: "<small>Please specify your last name.</small>",
+                        minlength: "<small>The last name must contains at least <b>7</b> chars.</small>"
+                    },
+                    birthDayInput: {
+                        required: "<small>Please specify your birth day.</small>",
+                        date: "<small>The birth day must respect the following format <b>MM/dd/yyyy</b> chars.</small>",
+                    },
+                    WhatsAppInput: {
+                        required: "<small>Please specify your whatsApp account.</small>",
+                        specialPhoneRegex: "<small>WhatsApp Number invalid <b>+212 6 XX XX XX XX</b>.</small>",
+
+                    },
+                    userNameInput: "<small>Please specify your username.</small>",
+                    passwordInput: "<small>Please specify your password.</small>"
                 }
             });
         });
+
     </script>
 </body>
 
